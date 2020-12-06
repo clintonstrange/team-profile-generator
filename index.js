@@ -1,1 +1,2 @@
-console.log("Kylo Ren");
+const inquirer = require("inquirer");
+const Employee = require("./Employee");
