@@ -1,13 +1,23 @@
+const { expect } = require("@jest/globals");
 const Intern = require("../lib/Intern");
 
-test("checks if intern is created", () => {
-    const intern = new Intern("Kylo");
+test("set school", () => {
+  const testValue = "Jedi Academy";
+  const intern = new Intern("Kylo", 1, "kylo@email.com", testValue);
 
-    expect(intern.school).toEqual(expect.any(String));
-})
+  expect(intern.school).toBe(testValue);
+});
+
+test("get role, Intern", () => {
+  const testValue = "Intern";
+  const intern = new Intern("Kylo", 1, "kylo@email.com", "Jedi Academy");
+
+  expect(intern.getRole()).toBe(testValue);
+});
 
 test("gets school name for intern", () => {
-    const intern = new Intern("Kylo");
+  const testValue = "Jedi Academy";
+  const intern = new Intern("Kylo", 1, "kylo@email.com", testValue);
 
-    expect(intern.getSchool()).toHaveProperty("school");
+  expect(intern.getSchool()).toBe(testValue);
 });
