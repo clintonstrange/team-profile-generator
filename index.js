@@ -89,15 +89,12 @@ function createTeamManager() {
       },
     ])
     .then((data) => {
-      console.log(data);
       const name = data.name;
       const id = data.id;
       const email = data.email;
       const officeNumber = data.officeNumber;
       const manager = new Manager(name, id, email, officeNumber);
-      console.log(manager);
       teamArr.push(manager);
-      console.log(teamArr);
       addEmployee();
     });
 }
@@ -107,7 +104,7 @@ function addEmployee() {
     .prompt({
       type: "list",
       name: "addOrCreate",
-      message: "Please select what you would like to do next.",
+      message: "  ----  Please select what you would like to do next.",
       choices: [
         { name: "Add an Engineer to the team", value: 1 },
         { name: "Add an Intern to the team", value: 2 },
@@ -132,7 +129,7 @@ function addEmployee() {
 }
 
 function addEngineer() {
-  console.log("Adding Engineer");
+  console.log("  ------  Adding Engineer  ------  ");
   return inquirer
     .prompt([
       {
@@ -189,21 +186,18 @@ function addEngineer() {
       },
     ])
     .then((data) => {
-      console.log(data);
       const name = data.name;
       const id = data.id;
       const email = data.email;
       const github = data.github;
       const engineer = new Engineer(name, id, email, github);
-      console.log(engineer);
       teamArr.push(engineer);
-      console.log(teamArr);
       addEmployee();
     });
 }
 
 function addIntern() {
-  console.log("Adding Intern");
+  console.log("  ------  Adding Intern  ------  ");
   return inquirer
     .prompt([
       {
@@ -260,15 +254,12 @@ function addIntern() {
       },
     ])
     .then((data) => {
-      console.log(data);
       const name = data.name;
       const id = data.id;
       const email = data.email;
       const school = data.school;
       const intern = new Intern(name, id, email, school);
-      console.log(intern);
       teamArr.push(intern);
-      console.log(teamArr);
       addEmployee();
     });
 }
@@ -280,7 +271,7 @@ function buildTeam() {
   const htmlBeg = `
   <!DOCTYPE html>
       <html lang="en">
-  
+
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -293,9 +284,9 @@ function buildTeam() {
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="style.css">
       </head>
-  
+
       <body>
-        <header class="bg-dark">
+        <header class="bg-dark py-3">
             <h1 class="text-danger text-center">Team Dark Side</h1>
         </header>
         <main class="container">
@@ -311,7 +302,7 @@ function buildTeam() {
           <h3 class="card-subtitle ${teamArr[i].icon} text-light pb-3"> ${teamArr[i].role}</h3>
           <ul class="bg-light py-2 rounded">
           <li class="card-text"> Employee ID: ${teamArr[i].id}</li>
-          <li> Email: 
+          <li> Email:
             <a href="mailto:${teamArr[i].email}" class="card-link">${teamArr[i].email}</a>
           </li>
     `;
@@ -322,7 +313,7 @@ function buildTeam() {
     }
     if (teamArr[i].github) {
       employeeCard += `
-        <li>Github: 
+        <li>Github:
           <a href="https://github.com/${teamArr[i].github}" target="blank" class="card-link">${teamArr[i].github}</a>
         </li>
       `;
@@ -343,7 +334,7 @@ function buildTeam() {
   }
 
   const htmlEnd = `
-  </div>      
+  </div>
   </main>
       </body>
     </html>
