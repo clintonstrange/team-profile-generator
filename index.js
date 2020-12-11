@@ -1,36 +1,38 @@
-const inquirer = require("inquirer");
-const fs = require("fs");
-
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 
+const inquirer = require("inquirer");
+const fs = require("fs");
+
+const render = require("./src/page-template.js");
+
 let teamArr = [];
 let htmlArr = [];
 
-function writeFile() {
-  fs.writeFileSync(`./dist/team.html`, htmlArr.join(""), function (err) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("The Team Profile Was Generated!");
-    }
-  });
-}
+// function writeFile() {
+//   fs.writeFileSync(`./dist/team.html`, htmlArr.join(""), function (err) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log("The Team Profile Was Generated!");
+//     }
+//   });
+// }
 
-const copyFile = () => {
-  return new Promise((resolve, reject) => {
-    fs.copyFile("./src/style.css", "./dist/style.css", (err) => {
-      if (err) {
-        reject(err);
-      }
-      resolve({
-        ok: true,
-        message: "File copied!",
-      });
-    });
-  });
-};
+// const copyFile = () => {
+//   return new Promise((resolve, reject) => {
+//     fs.copyFile("./src/style.css", "./dist/style.css", (err) => {
+//       if (err) {
+//         reject(err);
+//       }
+//       resolve({
+//         ok: true,
+//         message: "File copied!",
+//       });
+//     });
+//   });
+// };
 
 function createTeamManager() {
   return inquirer
