@@ -76,7 +76,6 @@ const createTeamManager = () => {
       },
     ])
     .then((data) => {
-      console.log(data);
       const name = data.name;
       const id = data.id;
       const email = data.email;
@@ -115,7 +114,9 @@ const addEmployee = () => {
 };
 
 function addEngineer() {
-  console.log("  ------  Adding Engineer  ------  ");
+  console.log("\n========\n")
+  console.log("Adding Engineer");
+  console.log("\n========\n")
   return inquirer
     .prompt([
       {
@@ -183,7 +184,9 @@ function addEngineer() {
 }
 
 function addIntern() {
-  console.log("  ------  Adding Intern  ------  ");
+  console.log("\n========\n")
+  console.log("Adding Intern");
+  console.log("\n========\n")
   return inquirer
     .prompt([
       {

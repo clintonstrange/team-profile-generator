@@ -1,32 +1,43 @@
 const generateEmployee = (teamData) => {
-  console.log(teamData);
-  return `
-    <div class="row justify-content-around">
+  // console.log(teamData);
+  let employeeCard = "";
+  for (let i = 0; i < teamData.length; i++) {
+    employeeCard += `
                     <div class="card bg-dark col-4 m-1">
                         <div class="card-body">
-                        ${teamData
-                          .forEach((employee) => {
-                            return `
-                            <h2 class="card-title text-danger"> ${employee.name}</h2>
-                            <h3 class="card-subtitle ${employee.icon} text-light pb-3"> ${employee.role}</h3>
+                            <h2 class="card-title text-danger">${teamData[i].name}</h2>
+                            <h3 class="card-subtitle ${teamData[i].icon} text-light pb-3"> ${teamData[i].role}</h3>
                             <ul class="bg-light py-2 rounded">
-                                <li class="card-text"> Employee ID: ${employee.id}</li>
+                                <li class="card-text"> Employee ID:${teamData[i].id}</li>
                                 <li>Email:
-                                    <a href="mailto:${employee.email}" class="card-link">${employee.email}</a>
+                                    <a href="mailto:${teamData[i].email} class="card-link">${teamData[i].email}</a>
                                 </li>
-                                <li class="card-text">Office #: ${employee.officeNumber}</li>
-                                <li>Github:
-                                    <a href="https://github.com/${employee.github}" target="blank" class="card-link">${employee.github}</a>
-                                </li>
-                                <li class="card-text">School: ${employee.school}</li>
+                                `;
+    if (teamData[i].officeNumber) {
+      employeeCard += `
+                                      <li>Office #: ${teamData[i].officeNumber}</li>
+                                    `;
+    }
+    if (teamData[i].github) {
+      employeeCard += `
+                                      <li>Github: 
+                                        <a href="https://github.com/${teamData[i].github}" target="blank">${teamData[i].github}</a>
+                                      </li>
+                                    `;
+    }
+    if (teamData[i].school) {
+      employeeCard += `
+                                    <li>School: ${teamData[i].school}</li>
+                                    `;
+    }
+
+    employeeCard += `
                             </ul>
-                            `;
-                          })
-                          .join("")}
                         </div>
                     </div>
-                </div>
     `;
+  }
+  return employeeCard;
 };
 
 module.exports = (teamData) => {
@@ -55,7 +66,9 @@ module.exports = (teamData) => {
                 <h1 class="text-danger text-center">Team Dark Side</h1>
             </header>
             <main class="container">
+            <div class="row justify-content-around">
                 ${generateEmployee(teamData)}
+                </div>
             </main>
         </body>
     </html>
