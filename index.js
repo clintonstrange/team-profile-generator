@@ -108,9 +108,8 @@ const addEmployee = () => {
         case 2:
           return addIntern();
         case 3:
-          return generatePage(teamData).then((pageHTML) => {
-            writeFile(pageHTML);
-          });
+          const pageHTML = generatePage(teamData);
+          writeFile(pageHTML);
       }
     });
 };

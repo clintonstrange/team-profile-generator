@@ -1,21 +1,28 @@
 const generateEmployee = (teamData) => {
+  console.log(teamData);
   return `
     <div class="row justify-content-around">
                     <div class="card bg-dark col-4 m-1">
                         <div class="card-body">
-                            <h2 class="card-title text-danger"> ${teamData.name}</h2>
-                            <h3 class="card-subtitle ${teamData.icon} text-light pb-3"> ${teamData.role}</h3>
+                        ${teamData
+                          .forEach((employee) => {
+                            return `
+                            <h2 class="card-title text-danger"> ${employee.name}</h2>
+                            <h3 class="card-subtitle ${employee.icon} text-light pb-3"> ${employee.role}</h3>
                             <ul class="bg-light py-2 rounded">
-                                <li class="card-text"> Employee ID: ${teamData.id}</li>
+                                <li class="card-text"> Employee ID: ${employee.id}</li>
                                 <li>Email:
-                                    <a href="mailto:${teamData.email}" class="card-link">${teamData.email}</a>
+                                    <a href="mailto:${employee.email}" class="card-link">${employee.email}</a>
                                 </li>
-                                <li class="card-text">Office #: ${teamData.officeNumber}</li>
+                                <li class="card-text">Office #: ${employee.officeNumber}</li>
                                 <li>Github:
-                                    <a href="https://github.com/${teamData.github}" target="blank" class="card-link">${teamData.github}</a>
+                                    <a href="https://github.com/${employee.github}" target="blank" class="card-link">${employee.github}</a>
                                 </li>
-                                <li class="card-text">School: ${teamData.school}</li>
+                                <li class="card-text">School: ${employee.school}</li>
                             </ul>
+                            `;
+                          })
+                          .join("")}
                         </div>
                     </div>
                 </div>
@@ -23,8 +30,9 @@ const generateEmployee = (teamData) => {
 };
 
 module.exports = (teamData) => {
-  console.log(teamData);
-  console.log("  --------  Building Your Team  --------  ");
+  console.log("\n==================\n");
+  console.log("Building Your Team");
+  console.log("\n==================\n");
   return `
   <!DOCTYPE html>
       <html lang="en">
