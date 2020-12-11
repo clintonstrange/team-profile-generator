@@ -35,7 +35,7 @@ This application generates a team profile to include a Manager and all Engineers
 
   Once you have cloned the repository for this application, enter in your command line: node index. Your team's profile will be generated based off your input.
 
-  [See Walkthrough Video Here](https://drive.google.com/file/d/10ccsa8Ob_gabUUTxfZNjhoioHM8GeZAO/view)
+  [See Walkthrough Video Here](https://drive.google.com/file/d/1wVx1m12YEf-mjXpX4MNspqfLe7Mr0S-k/view)
 
   ## Questions
 
