@@ -1,32 +1,37 @@
-function writeFile() {
-  fs.writeFileSync(`./dist/team.html`, htmlArr.join(""), function (err) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("The Team Profile Was Generated!");
-    }
-  });
+
+const generateName = (nameText) => {
+
 }
 
-const copyFile = () => {
-  return new Promise((resolve, reject) => {
-    fs.copyFile("./src/style.css", "./dist/style.css", (err) => {
-      if (err) {
-        reject(err);
-      }
-      resolve({
-        ok: true,
-        message: "File copied!",
-      });
-    });
-  });
-};
+const generateIcon = (iconText) => {
+    
+}
 
-function buildTeam() {
+const generateId = (idText) => {
+    
+}
+
+const generateEmail = (emailText) => {
+    
+}
+
+const generateOffNum = (offNumText) => {
+    
+}
+
+const generateGithub = (githubText) => {
+    
+}
+
+const generateSchool = (schoolText) => {
+    
+}
+ 
+
+module.exports = (teamData) => {
+    console.log(teamData);
   console.log("  --------  Building Your Team  --------  ");
-  // generateTeam(data);
-
-  const htmlBeg = `
+  return `
   <!DOCTYPE html>
       <html lang="en">
 
@@ -49,46 +54,26 @@ function buildTeam() {
         </header>
         <main class="container">
         <div class="row justify-content-around">
-  `;
-  htmlArr.push(htmlBeg);
-
-  for (let i = 0; i < teamArr.length; i++) {
-    let employeeCard = `
       <div class="card bg-dark col-4 m-1">
         <div class="card-body">
-          <h2 class="card-title text-danger">${teamArr[i].name}</h2>
-          <h3 class="card-subtitle ${teamArr[i].icon} text-light pb-3"> ${teamArr[i].role}</h3>
+          <h2 class="card-title text-danger">${generateName(teamData.name)}</h2>
+          <h3 class="card-subtitle ${teamData[i].icon} text-light pb-3"> ${teamData[i].role}</h3>
           <ul class="bg-light py-2 rounded">
-          <li class="card-text"> Employee ID: ${teamArr[i].id}</li>
+          <li class="card-text"> Employee ID: ${teamData[i].id}</li>
           <li> Email:
-            <a href="mailto:${teamArr[i].email}" class="card-link">${teamArr[i].email}</a>
+            <a href="mailto:${teamData[i].email}" class="card-link">${teamData[i].email}</a>
           </li>
-    `;
-    if (teamArr[i].officeNumber) {
-      employeeCard += `
-        <li class="card-text">Office #: ${teamArr[i].officeNumber}</li>
-      `;
-    }
-    if (teamArr[i].github) {
-      employeeCard += `
+        <li class="card-text">Office #: ${teamData[i].officeNumber}</li>
         <li>Github:
-          <a href="https://github.com/${teamArr[i].github}" target="blank" class="card-link">${teamArr[i].github}</a>
+          <a href="https://github.com/${teamData[i].github}" target="blank" class="card-link">${teamData[i].github}</a>
         </li>
-      `;
-    }
-    if (teamArr[i].school) {
-      employeeCard += `
-      <li class="card-text">School: ${teamArr[i].school}</li>
-      `;
-    }
-
-    employeeCard += `
+      <li class="card-text">School: ${teamData[i].school}</li>
       </ul>
     </div>
     </div>
   `;
 
-    htmlArr.push(employeeCard);
+    
   }
 
   const htmlEnd = `
@@ -99,9 +84,4 @@ function buildTeam() {
   `;
   htmlArr.push(htmlEnd);
 
-  const finalHTMLArr = htmlArr;
-  writeFile(finalHTMLArr);
-  copyFile();
-}
-
-module.exports = { buildTeam };
+};

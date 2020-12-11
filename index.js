@@ -5,36 +5,21 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const fs = require("fs");
 
-const render = require("./src/page-template.js");
+const generatePage = require("./src/page-template.js");
 
-let teamArr = [];
-let htmlArr = [];
+let teamData = [];
 
-// function writeFile() {
-//   fs.writeFileSync(`./dist/team.html`, htmlArr.join(""), function (err) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       console.log("The Team Profile Was Generated!");
-//     }
-//   });
-// }
+function writeFile(pageHTML) {
+  fs.writeFileSync(`./dist/team.html`, pageHTML, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("The Team Profile Was Generated!");
+    }
+  });
+}
 
-// const copyFile = () => {
-//   return new Promise((resolve, reject) => {
-//     fs.copyFile("./src/style.css", "./dist/style.css", (err) => {
-//       if (err) {
-//         reject(err);
-//       }
-//       resolve({
-//         ok: true,
-//         message: "File copied!",
-//       });
-//     });
-//   });
-// };
-
-function createTeamManager() {
+const createTeamManager = () => {
   return inquirer
     .prompt([
       {
@@ -91,18 +76,19 @@ function createTeamManager() {
       },
     ])
     .then((data) => {
+      console.log(data);
       const name = data.name;
       const id = data.id;
       const email = data.email;
       const officeNumber = data.officeNumber;
       const manager = new Manager(name, id, email, officeNumber);
-      teamArr.push(manager);
-      addEmployee();
+      teamData.push(manager);
+      // console.log(teamData);
     });
-}
+};
 
-function addEmployee() {
-  return inquirer
+const addEmployee = () => {
+  inquirer
     .prompt({
       type: "list",
       name: "addOrCreate",
@@ -114,21 +100,20 @@ function addEmployee() {
       ],
       default: 3,
     })
-    .then((data) => {
-      // console.log(data.addOrCreate);
-      switch (data.addOrCreate) {
+    .then((response) => {
+      // console.log(response.addOrCreate);
+      switch (response.addOrCreate) {
         case 1:
-          addEngineer();
-          break;
+          return addEngineer();
         case 2:
-          addIntern();
-          break;
+          return addIntern();
         case 3:
-          buildTeam();
-          break;
+          return generatePage(teamData).then((pageHTML) => {
+            writeFile(pageHTML);
+          });
       }
     });
-}
+};
 
 function addEngineer() {
   console.log("  ------  Adding Engineer  ------  ");
@@ -193,8 +178,8 @@ function addEngineer() {
       const email = data.email;
       const github = data.github;
       const engineer = new Engineer(name, id, email, github);
-      teamArr.push(engineer);
-      addEmployee();
+      teamData.push(engineer);
+      return addEmployee();
     });
 }
 
@@ -261,91 +246,13 @@ function addIntern() {
       const email = data.email;
       const school = data.school;
       const intern = new Intern(name, id, email, school);
-      teamArr.push(intern);
-      addEmployee();
+      teamData.push(intern);
+      return addEmployee();
     });
 }
 
-function buildTeam() {
-  console.log("  --------  Building Your Team  --------  ");
-  // generateTeam(data);
-
-  const htmlBeg = `
-  <!DOCTYPE html>
-      <html lang="en">
-
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Team Dark Side</title>
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Roboto:wght@500&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="style.css">
-      </head>
-
-      <body>
-        <header class="bg-dark py-3">
-            <h1 class="text-danger text-center">Team Dark Side</h1>
-        </header>
-        <main class="container">
-        <div class="row justify-content-around">
-  `;
-  htmlArr.push(htmlBeg);
-
-  for (let i = 0; i < teamArr.length; i++) {
-    let employeeCard = `
-      <div class="card bg-dark col-4 m-1">
-        <div class="card-body">
-          <h2 class="card-title text-danger">${teamArr[i].name}</h2>
-          <h3 class="card-subtitle ${teamArr[i].icon} text-light pb-3"> ${teamArr[i].role}</h3>
-          <ul class="bg-light py-2 rounded">
-          <li class="card-text"> Employee ID: ${teamArr[i].id}</li>
-          <li> Email:
-            <a href="mailto:${teamArr[i].email}" class="card-link">${teamArr[i].email}</a>
-          </li>
-    `;
-    if (teamArr[i].officeNumber) {
-      employeeCard += `
-        <li class="card-text">Office #: ${teamArr[i].officeNumber}</li>
-      `;
-    }
-    if (teamArr[i].github) {
-      employeeCard += `
-        <li>Github:
-          <a href="https://github.com/${teamArr[i].github}" target="blank" class="card-link">${teamArr[i].github}</a>
-        </li>
-      `;
-    }
-    if (teamArr[i].school) {
-      employeeCard += `
-      <li class="card-text">School: ${teamArr[i].school}</li>
-      `;
-    }
-
-    employeeCard += `
-      </ul>
-    </div>
-    </div>
-  `;
-
-    htmlArr.push(employeeCard);
-  }
-
-  const htmlEnd = `
-  </div>
-  </main>
-      </body>
-    </html>
-  `;
-  htmlArr.push(htmlEnd);
-
-  const finalHTMLArr = htmlArr;
-  writeFile(finalHTMLArr);
-  copyFile();
-}
-
-createTeamManager();
+createTeamManager()
+  .then(addEmployee)
+  .catch((err) => {
+    console.log(err);
+  });
