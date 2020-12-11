@@ -15,7 +15,7 @@ This application generates a team profile to include a Manager and all Engineers
 
   ## Installation
 
-  This application requires Node.js, FS and has a dependency of Inquirer and a developer dependency on Jest to test the code.
+  You must clone the repository clintonstrange/team-profile-generator and ensure you have installsed node.js, jest and inquirer. To run application, enter "node index" in the command line. To test the application, enter "npm run test" to run tests for all test suites using jest.
 
   ## Usage
 
@@ -23,13 +23,15 @@ This application generates a team profile to include a Manager and all Engineers
 
   ## License
 
-  Currently not under any license.
+  Licensed under the Mozilla license.
 
   ## Contributing
 
-  Contributing Guidelines are still being developed, currently not accepting any contributions.
+  While the Contribution Guidelines are still being developed for this project we do require all contributors adopt the [Contributor Covenant](https://www.contributor-covenant.org)
 
   ## Tests
+
+  You may test the project using jest, from the root directory, run "npm run test" to test all test suites in application.
 
   Once you have cloned the repository for this application, enter in your command line: node index. Your team's profile will be generated based off your input.
 
