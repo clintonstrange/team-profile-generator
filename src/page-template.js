@@ -8,7 +8,7 @@ const generateEmployee = (teamData) => {
                             <h2 class="card-title text-danger">${teamData[i].name}</h2>
                             <h3 class="card-subtitle ${teamData[i].icon} text-light pb-3"> ${teamData[i].role}</h3>
                             <ul class="bg-light py-2 rounded">
-                                <li class="card-text"> Employee ID:${teamData[i].id}</li>
+                                <li class="card-text"> Employee ID: ${teamData[i].id}</li>
                                 <li>Email:
                                     <a href="mailto:${teamData[i].email} class="card-link">${teamData[i].email}</a>
                                 </li>
